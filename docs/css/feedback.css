@@ -1,0 +1,631 @@
+/* ========== 全局变量：沿用统一暖色系风格 ========== */
+:root {
+    --primary: #FFE0B2; /* 浅橙黄：温暖童趣 */
+    --secondary: #f5cec2; /* 淡粉橙：柔和可爱 */
+    --accent: #f8f6f2; /* 米白黄：活泼不刺眼 */
+    --light-accent: #FFFDF7; /* 极浅暖底：接近白色 */
+    --text-dark: #7D6B5C; /* 暖深棕：主文本（不刺眼） */
+    --text-gray: #A69483; /* 暖浅棕：次文本 */
+    --text-light: #D4C7BD; /* 暖极浅棕：淡文本 */
+    --white: #fff;
+    --tag-color1: #FFE8CC; /* 标签色1 */
+    --tag-color2: #F9D9C0; /* 标签色2 */
+    --tag-color3: #F5C9AD; /* 标签色3 */
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.05);
+    --shadow-md: 0 3px 8px rgba(0,0,0,0.08);
+    --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+    --radius-sm: 8px;
+    --radius-md: 16px; /* 圆角更大，更可爱 */
+    --radius-lg: 28px;
+    --radius-circle: 50%;
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========== 全局重置 + 基础样式（统一风格） ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "楷体","Microsoft YaHei", "Heiti SC", "幼圆", sans-serif;
+}
+body {
+    background-color: var(--light-accent);
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-size: 16px;
+}
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-base);
+}
+ul {
+    list-style: none;
+}
+button, input, select, textarea {
+    border: none;
+    outline: none;
+    font-family: inherit;
+    transition: var(--transition-base);
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* ========== 自定义滚动条：暖色调统一 ========== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--light-accent);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    opacity: 0.7;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #FFD591;
+}
+
+/* ========== 动画：轻盈统一风格 ========== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0); }
+}
+.animate-fade {
+    animation: fadeIn 0.5s ease forwards;
+}
+.animate-slide {
+    animation: slideUp 0.6s ease forwards;
+}
+.animate-float {
+    animation: float 3s infinite ease-in-out;
+}
+
+/* ========== 顶部导航：完全沿用指定样式 ========== */
+.header {
+    background-color: var(--primary);
+    color: var(--text-dark);
+    padding: 25px 0;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.header .container {
+    display: flex;
+    align-items: center;
+    position: relative; /* 作为Logo绝对定位的参考 */
+}
+
+/* Logo样式适配当前HTML结构 */
+.logo {
+    position: absolute;
+    left: -50px; /* 精准靠左 */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    z-index: 10; /* 确保Logo在最上层 */
+}
+.logo img {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--radius-circle);
+    border: 3px solid var(--accent);
+    object-fit: cover;
+}
+.logo h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1.2;
+    color: var(--text-dark);
+}
+
+/* 导航栏：无滚动条+文字加大 */
+.nav {
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    overflow: visible !important; /* 强制移除滚动条 */
+    -webkit-overflow-scrolling: auto;
+    padding: 0 0 2px 200px; /* 给Logo留出空间 */
+    margin: 0 auto; /* 导航栏居中 */
+    width: 100%;
+    justify-content: center; /* 导航项居中排列 */
+}
+.nav a {
+    color: var(--text-dark);
+    font-size: 1.25rem;
+    padding: 8px 0;
+    white-space: nowrap;
+    position: relative;
+    font-weight: 500;
+}
+.nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: var(--transition-base);
+}
+.nav a:hover::after, .nav a.active::after {
+    width: 100%;
+}
+.nav a:hover, .nav a.active {
+    color: #6B5848;
+}
+
+/* 预约按钮：靠右显示 */
+.reserve-btn {
+    position: absolute;
+    right: -20px; /* 按钮靠右，和Logo对称 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+.reserve-btn a {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: var(--text-dark);
+    padding: 10px 22px;
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    font-size: 1.05rem;
+    box-shadow: var(--shadow-sm);
+}
+.reserve-btn a:hover {
+    background-color: #FFB79D;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========== 家长反馈页主体专属样式 ========== */
+.feedback-main {
+    padding: 40px 0 60px;
+    animation: fadeIn 0.6s ease forwards;
+}
+/* 重置容器内边距 */
+.feedback-main .container {
+    max-width: 1200px; /* 限制宽度，避免内容过宽 */
+    padding: 0 20px;
+}
+
+/* 页面标题：沿用统一美化风格 */
+.page-title {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 12px;
+    position: relative;
+    padding-bottom: 15px;
+}
+.page-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    border-radius: 2px;
+}
+
+/* 页面副标题样式 */
+.feedback-desc {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+    text-align: center;
+    margin-bottom: 60px;
+    line-height: 1.8;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 反馈列表容器 */
+.feedback-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-bottom: 70px;
+}
+
+/* 反馈卡片样式 */
+.feedback-card {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    gap: 30px;
+    transition: var(--transition-base);
+}
+.feedback-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+/* 家长信息区域 */
+.parent-info {
+    flex: 0 0 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 15px;
+    background-color: var(--light-accent);
+    border-radius: var(--radius-md);
+}
+.parent-info img {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--radius-circle);
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--primary);
+    box-shadow: var(--shadow-sm);
+    animation: float 3s infinite ease-in-out;
+}
+.parent-detail h3 {
+    font-size: 1.4rem;
+    color: #6B5848;
+    margin-bottom: 5px;
+}
+.parent-detail p {
+    font-size: 1rem;
+    color: var(--text-gray);
+}
+
+/* 反馈内容区域 */
+.feedback-content {
+    flex: 1;
+}
+.feedback-content p {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-indent: 2em;
+}
+
+/* 反馈标签 */
+.feedback-tag {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+.feedback-tag span {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: var(--radius-lg);
+    font-size: 0.95rem;
+    color: #6B5848;
+}
+.feedback-tag span:nth-child(1) {
+    background-color: var(--tag-color1);
+}
+.feedback-tag span:nth-child(2) {
+    background-color: var(--tag-color2);
+}
+.feedback-tag span:nth-child(3) {
+    background-color: var(--tag-color3);
+}
+
+/* 提交反馈模块 */
+.submit-feedback {
+    background-color: var(--accent);
+    border-radius: var(--radius-md);
+    padding: 40px 35px;
+    box-shadow: var(--shadow-md);
+    background-image: linear-gradient(180deg, var(--accent) 0%, var(--light-accent) 100%);
+}
+.submit-feedback h3 {
+    font-size: 1.8rem;
+    color: #6B5848;
+    text-align: center;
+    margin-bottom: 15px;
+    position: relative;
+    padding-bottom: 15px;
+}
+.submit-feedback h3::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(to right, var(--primary), var(--secondary));
+    border-radius: 2px;
+}
+.submit-feedback > p {
+    font-size: 1.1rem;
+    color: var(--text-gray);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* 反馈表单样式 */
+.feedback-form {
+    max-width: 800px;
+    margin: 0 auto;
+    display: grid;
+    gap: 20px;
+}
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.form-group label {
+    font-size: 1.1rem;
+    color: #6B5848;
+    font-weight: 500;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    padding: 12px 15px;
+    border-radius: var(--radius-sm);
+    background-color: var(--white);
+    border: 1px solid var(--text-light);
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(255, 224, 178, 0.3);
+}
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+.form-group input[type="file"] {
+    padding: 8px 0;
+    border: none;
+}
+.form-group input[type="file"]::file-selector-button {
+    background-color: var(--secondary);
+    color: #6B5848;
+    padding: 8px 15px;
+    border-radius: var(--radius-sm);
+    border: none;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.form-group input[type="file"]::file-selector-button:hover {
+    background-color: #FFB79D;
+}
+
+/* 提交按钮 */
+.submit-btn {
+    width: 100%;
+    padding: 12px 0;
+    background-color: var(--secondary);
+    color: #6B5848;
+    border-radius: var(--radius-lg);
+    font-size: 1.1rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+}
+.submit-btn:hover {
+    background-color: #FFB79D;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========== 页脚：完全沿用指定样式 ========== */
+.footer {
+    background-color: var(--primary);
+    color: var(--text-dark);
+    padding: 40px 0 15px;
+    margin-top: 70px;
+    background-image: linear-gradient(180deg, #FFE0B2 0%, #FFD591 100%);
+}
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+.contact-info, .quick-link, .wechat {
+    width: 30%;
+    min-width: 250px;
+}
+.footer h4 {
+    font-size: 1.3rem; /* 加大标题 */
+    margin-bottom: 18px;
+    color: #6B5848;
+    position: relative;
+    padding-left: 12px;
+}
+.footer h4::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+}
+.contact-info p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem; /* 加大文字 */
+}
+.quick-link a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 9px;
+    padding: 4px 0;
+    font-size: 1rem; /* 加大文字 */
+}
+.quick-link a:hover {
+    color: #6B5848;
+    padding-left: 6px;
+}
+.wechat img {
+    width: 120px; /* 加大二维码 */
+    height: 120px;
+    margin-bottom: 8px;
+    border: 2px solid var(--white);
+    border-radius: var(--radius-sm);
+    margin-left: auto;
+    margin-right: auto;
+}
+.wechat p {
+    color: var(--text-gray);
+    font-size: 0.9rem;
+    text-align: center;
+}
+.footer-bottom {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    color: var(--text-gray);
+    font-size: 0.9rem; /* 加大文字 */
+}
+
+/* ========== 响应式适配（兼容feedback页面） ========== */
+@media (max-width: 1200px) {
+    .feedback-card {
+        flex-direction: column;
+        gap: 25px;
+    }
+    .parent-info {
+        flex: none;
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        text-align: left;
+    }
+    .parent-info img {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    /* 导航栏移动端适配 */
+    .logo {
+        position: static;
+        transform: none;
+        margin-bottom: 15px;
+        justify-content: center;
+    }
+    .nav {
+        padding-left: 0;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 8px;
+    }
+    .reserve-btn {
+        position: static;
+        transform: none;
+        margin-top: 15px;
+        width: 100%;
+        text-align: center;
+    }
+    .header .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* feedback页面移动端适配 */
+    .page-title {
+        font-size: 2rem;
+    }
+    .feedback-desc {
+        font-size: 1.1rem;
+        padding: 0 10px;
+        margin-bottom: 40px;
+    }
+    .feedback-card {
+        padding: 20px;
+    }
+    .parent-info {
+        flex-direction: column;
+        text-align: center;
+        gap: 10px;
+    }
+    .submit-feedback {
+        padding: 30px 20px;
+    }
+    .submit-feedback h3 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .container {
+        padding: 15px;
+    }
+
+    /* feedback页面小屏适配 */
+    .page-title {
+        font-size: 1.8rem;
+    }
+    .feedback-desc {
+        font-size: 1rem;
+        margin-bottom: 30px;
+    }
+    .feedback-list {
+        gap: 30px;
+    }
+    .feedback-content p {
+        font-size: 1rem;
+        text-indent: 1em;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        padding: 10px 12px;
+    }
+    .submit-feedback > p {
+        font-size: 1rem;
+    }
+
+    /* 页脚适配 */
+    .footer-top {
+        flex-direction: column;
+        gap: 35px;
+    }
+    .contact-info, .quick-link, .wechat {
+        width: 100%;
+    }
+}

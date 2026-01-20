@@ -1,0 +1,694 @@
+/* ========== 全局变量：暖色系+低饱和，贴近儿童 ========== */
+:root {
+    --primary: #FFE0B2; /* 浅橙黄：温暖童趣 */
+    --secondary: #f5cec2; /* 淡粉橙：柔和可爱 */
+    --accent: #f8f6f2; /* 米白黄：活泼不刺眼 */
+    --light-accent: #FFFDF7; /* 极浅暖底：接近白色 */
+    --text-dark: #7D6B5C; /* 暖深棕：主文本（不刺眼） */
+    --text-gray: #A69483; /* 暖浅棕：次文本 */
+    --text-light: #D4C7BD; /* 暖极浅棕：淡文本 */
+    --white: #fff;
+    --shadow-sm: 0 2px 6px rgba(0,0,0,0.05);
+    --shadow-md: 0 3px 8px rgba(0,0,0,0.08);
+    --shadow-lg: 0 4px 12px rgba(0,0,0,0.1);
+    --radius-sm: 8px;
+    --radius-md: 16px; /* 圆角更大，更可爱 */
+    --radius-lg: 28px;
+    --radius-circle: 50%;
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ========== 全局重置 + 基础样式 ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "楷体","Microsoft YaHei", "Heiti SC", "幼圆", sans-serif;
+}
+body {
+    background-color: var(--light-accent);
+    color: var(--text-dark);
+    line-height: 1.7;
+    font-size: 16px;
+}
+.container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px;
+}
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: var(--transition-base);
+}
+ul {
+    list-style: none;
+}
+button {
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: var(--transition-base);
+    font-family: inherit;
+}
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+.hidden {
+    display: none !important;
+}
+
+/* ========== 自定义滚动条：暖色调 ========== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--light-accent);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    opacity: 0.7;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #FFD591;
+}
+
+/* ========== 动画：更轻盈 ========== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes slideUp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+.animate-fade {
+    animation: fadeIn 0.5s ease forwards;
+}
+.animate-slide {
+    animation: slideUp 0.6s ease forwards;
+}
+
+/* ========== 顶部导航：完整保留统一样式 ========== */
+.header {
+    background-color: var(--primary);
+    color: var(--text-dark);
+    padding: 25px 0;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+.header .container {
+    display: flex;
+    align-items: center;
+    position: relative; /* 作为Logo绝对定位的参考 */
+}
+
+/* Logo：精准定位到导航栏左侧30px */
+.logo {
+    position: absolute;
+    left: -50px; /* 精准靠左30px */
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    z-index: 10; /* 确保Logo在最上层 */
+}
+.logo img {
+    width: 120px;
+    height: 120px;
+    border-radius: var(--radius-circle);
+    border: 3px solid var(--accent);
+    object-fit: cover;
+}
+.logo h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+/* 导航栏：彻底移除滚动条，内容完整显示 */
+.nav {
+    display: flex;
+    gap: 16px;
+    flex-wrap: nowrap;
+    overflow: visible !important; /* 强制移除滚动条 */
+    -webkit-overflow-scrolling: auto;
+    padding: 0 0 2px 200px; /* 给Logo留出空间 */
+    margin: 0 auto; /* 导航栏居中 */
+    width: 100%;
+    justify-content: center; /* 导航项居中排列 */
+}
+/* 核心修改：导航文字加大 + 无滚动条 */
+.nav a {
+    color: var(--text-dark);
+    font-size: 1.25rem;
+    padding: 8px 0;
+    white-space: nowrap;
+    position: relative;
+    font-weight: 500;
+}
+.nav a::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: var(--transition-base);
+}
+.nav a:hover::after, .nav a.active::after {
+    width: 100%;
+}
+.nav a:hover, .nav a.active {
+    color: #6B5848;
+}
+
+/* 预约按钮：靠右显示 */
+.reserve-btn {
+    position: absolute;
+    right: -20px; /* 按钮靠右30px，和Logo对称 */
+    top: 50%;
+    transform: translateY(-50%);
+}
+.reserve-btn a {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: var(--text-dark);
+    padding: 10px 22px;
+    border-radius: var(--radius-lg);
+    font-weight: 500;
+    font-size: 1.05rem;
+    box-shadow: var(--shadow-sm);
+}
+.reserve-btn a:hover {
+    background-color: #FFB79D;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* ========== 面包屑导航样式 ========== */
+.breadcrumb {
+    background-color: var(--white);
+    padding: 12px 0;
+    border-bottom: 1px solid var(--light-accent);
+}
+.breadcrumb .container {
+    max-width: 1200px;
+    padding: 0 20px;
+    font-size: 1rem;
+    color: var(--text-gray);
+}
+.breadcrumb a {
+    color: var(--text-dark);
+}
+.breadcrumb a:hover {
+    color: #6B5848;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.breadcrumb span {
+    color: var(--text-dark);
+    font-weight: 500;
+}
+.breadcrumb a + a,
+.breadcrumb a + span {
+    margin-left: 8px;
+}
+.breadcrumb a + a::before,
+.breadcrumb a + span::before {
+    content: ">";
+    margin-right: 8px;
+    color: var(--text-gray);
+}
+
+/* ========== 汉字详情页主体专属样式 ========== */
+.hanzi-detail {
+    padding: 40px 0 60px;
+    animation: fadeIn 0.6s ease forwards;
+}
+/* 重置页面容器内边距 */
+.hanzi-detail .container {
+    max-width: 1200px; /* 限制宽度，避免内容过宽 */
+    padding: 0 20px;
+}
+
+/* 汉字标题区域 */
+.hanzi-header {
+    text-align: center;
+    margin-bottom: 60px;
+    padding-bottom: 30px;
+    border-bottom: 2px solid var(--primary);
+}
+.hanzi-header h2 {
+    font-size: 4rem;
+    color: #6B5848;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.hanzi-pinyin {
+    font-size: 1.8rem;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+.hanzi-meaning {
+    font-size: 1.2rem;
+    color: var(--text-gray);
+}
+
+/* 汉字内容区域通用标题 */
+.hanzi-content h3,
+.hanzi-interactive h3,
+.hanzi-expand h3,
+.hanzi-handcraft h3,
+.related-hanzi h3 {
+    font-size: 1.8rem;
+    color: #6B5848;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.hanzi-content h3::before,
+.hanzi-interactive h3::before,
+.hanzi-expand h3::before,
+.hanzi-handcraft h3::before,
+.related-hanzi h3::before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 24px;
+    background-color: var(--primary);
+    border-radius: 4px;
+}
+
+/* 汉字内容布局 */
+.hanzi-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 60px;
+}
+
+/* 演变动画模块（兼容<br>换行） */
+.hanzi-video {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px 25px;
+    box-shadow: var(--shadow-md);
+}
+.video-container {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: 15px;
+    box-shadow: var(--shadow-sm);
+}
+.video-container video {
+    width: 100%;
+    height: 280px;
+    display: block;
+    object-fit: cover;
+}
+.video-desc {
+    font-size: 1.5rem;
+    color: var(--text-gray);
+    line-height: 1.7;
+    text-align: center;
+}
+
+/* 演变图解模块 */
+.hanzi-evolution {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px 25px;
+    box-shadow: var(--shadow-md);
+}
+.evolution-img {
+    margin: 0 auto 20px; /* 核心修改：上下边距保持，左右自动居中 */
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    display: block; /* 把img的行内元素转为块级，margin:0 auto 才能生效 */
+    max-width: 100%; /* 防止图片超出容器 */
+}
+.evolution-img img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+}
+.evolution-process h4 {
+    font-size: 1.5rem;
+    color: #6B5848;
+    margin-bottom: 10px;
+}
+.evolution-process p {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+}
+
+/* 互动问答模块 */
+.hanzi-interactive {
+    margin-bottom: 60px;
+}
+.question-card {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px 25px;
+    box-shadow: var(--shadow-md);
+}
+.question {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+.answer-btn {
+    background-color: var(--secondary);
+    color: var(--text-dark);
+    padding: 10px 25px;
+    border-radius: var(--radius-lg);
+    font-size: 1.05rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 15px;
+}
+.answer-btn:hover {
+    background-color: #FFB79D;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+.answer {
+    padding: 20px;
+    background-color: var(--light-accent);
+    border-radius: var(--radius-sm);
+    border-left: 4px solid var(--primary);
+}
+.answer p {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+}
+
+/* 文化拓展模块 */
+.hanzi-expand {
+    margin-bottom: 60px;
+}
+.expand-content {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px 25px;
+    box-shadow: var(--shadow-md);
+}
+.expand-content p {
+    font-size: 1rem;
+    color: var(--text-dark);
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+.hanzi-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 15px 0;
+    padding: 15px;
+    background-color: var(--light-accent);
+    border-radius: var(--radius-sm);
+}
+.hanzi-group li {
+    font-size: 1.1rem;
+    color: #6B5848;
+    padding: 8px 15px;
+    background-color: var(--white);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-sm);
+}
+
+/* 延伸手工模块 */
+.hanzi-handcraft {
+    margin-bottom: 60px;
+}
+.handcraft-card {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 30px 25px;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.handcraft-card img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: var(--radius-sm);
+    margin-bottom: 20px;
+    box-shadow: var(--shadow-sm);
+}
+.handcraft-card h4 {
+    font-size: 1.3rem;
+    color: #6B5848;
+    margin-bottom: 10px;
+}
+.handcraft-card p {
+    font-size: 1rem;
+    color: var(--text-gray);
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+.handcraft-link {
+    display: inline-block;
+    background-color: var(--secondary);
+    color: var(--text-dark);
+    padding: 10px 25px;
+    border-radius: var(--radius-lg);
+    font-size: 1.05rem;
+    font-weight: 500;
+    box-shadow: var(--shadow-sm);
+}
+.handcraft-link:hover {
+    background-color: #FFB79D;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+/* 相关汉字推荐模块 */
+.related-hanzi {
+    margin-bottom: 25px;
+}
+.related-list {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.related-item {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 5px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+}
+.related-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--primary);
+}
+.related-item img {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-circle);
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+.related-item span {
+    font-size: 1.5rem;
+    color: #6B5848;
+    font-weight: bold;
+}
+
+/* ========== 页脚：完整保留统一样式 ========== */
+.footer {
+    background-color: var(--primary);
+    color: var(--text-dark);
+    padding: 40px 0 15px;
+    margin-top: 70px;
+    background-image: linear-gradient(180deg, #FFE0B2 0%, #FFD591 100%);
+}
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 25px;
+}
+.footer .contact-info, .quick-link, .wechat {
+    width: 30%;
+    min-width: 250px;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+}
+.footer h4 {
+    font-size: 1.3rem; /* 加大标题（原1.2rem） */
+    margin-bottom: 18px;
+    color: #6B5848;
+    position: relative;
+    padding-left: 12px;
+}
+.footer h4::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+}
+.footer .contact-info p {
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem; /* 加大文字（原0.95rem） */
+}
+.quick-link a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 9px;
+    padding: 4px 0;
+    font-size: 1rem; /* 加大文字（原0.95rem） */
+}
+.quick-link a:hover {
+    color: #6B5848;
+    padding-left: 6px;
+}
+.wechat img {
+    width: 120px; /* 加大二维码（原110px） */
+    height: 120px;
+    margin-bottom: 8px;
+    border: 2px solid var(--white);
+    border-radius: var(--radius-sm);
+}
+.footer-bottom {
+    text-align: center;
+    padding-top: 15px;
+    border-top: 1px solid rgba(0,0,0,0.08);
+    color: var(--text-gray);
+    font-size: 0.9rem; /* 加大文字（原0.85rem） */
+}
+
+/* ========== 响应式适配：兼容汉字详情页 ========== */
+@media (max-width: 1200px) {
+    .hanzi-content {
+        gap: 30px;
+    }
+}
+@media (max-width: 768px) {
+    /* 汉字详情页移动端适配 */
+    .hanzi-header h2 {
+        font-size: 3rem;
+    }
+    .hanzi-pinyin {
+        font-size: 1.5rem;
+    }
+    .hanzi-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        margin-bottom: 40px;
+    }
+    .hanzi-video,
+    .hanzi-evolution,
+    .question-card,
+    .expand-content,
+    .handcraft-card {
+        padding: 25px 20px;
+    }
+    .video-container video {
+        height: 220px;
+    }
+    .hanzi-content h3,
+    .hanzi-interactive h3,
+    .hanzi-expand h3,
+    .hanzi-handcraft h3,
+    .related-hanzi h3 {
+        font-size: 1.5rem;
+    }
+    .question {
+        font-size: 1rem;
+    }
+    .handcraft-card img {
+        max-width: 100%;
+    }
+}
+@media (max-width: 576px) {
+    .header .container {
+        padding: 15px;
+    }
+    .logo {
+        left: 15px;
+        gap: 10px;
+    }
+    .logo img {
+        width: 60px;
+        height: 60px;
+    }
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+    .nav {
+        padding-left: 100px;
+        gap: 10px;
+    }
+    .nav a {
+        font-size: 1rem;
+    }
+    .reserve-btn {
+        right: 15px;
+    }
+    .reserve-btn a {
+        padding: 8px 15px;
+        font-size: 0.95rem;
+    }
+
+    /* 汉字详情页小屏适配 */
+    .hanzi-header h2 {
+        font-size: 2.5rem;
+    }
+    .video-container video {
+        height: 180px;
+    }
+    .related-list {
+        gap: 15px;
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 10px;
+    }
+    .related-item {
+        flex-shrink: 0;
+    }
+    .footer-top {
+        flex-direction: column;
+        gap: 35px;
+    }
+    .footer .contact-info, .quick-link, .wechat {
+        width: 100%;
+    }
+}
